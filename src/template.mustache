@@ -22,10 +22,8 @@ namespace {{namespace}}
             return string.Format(
                 PrepareLocalizedString(
                     "{{resourceName}}"{{#resourceParams}}, 
-                    nameof({{paramName}}){{/resourceParams}}
-                ){{#resourceParams}},
-                {{paramName}}{{/resourceParams}}
-            );
+                    nameof({{paramName}}){{/resourceParams}}){{#resourceParams}},
+                {{paramName}}{{/resourceParams}});
 {{/hasParams}}
         }
 
