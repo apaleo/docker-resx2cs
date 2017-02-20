@@ -1,0 +1,49 @@
+using System.Diagnostics;
+using System.Text.RegularExpressions;
+using Microsoft.Extensions.Localization;
+
+namespace {{namespace}}
+{
+    public class {{className}}
+    {
+        private readonly IStringLocalizer<{{resourceName}}> _localizer;
+
+        public {{className}}(IStringLocalizer<{{resourceName}}> localizer)
+        {
+            _localizer = localizer;
+        }
+
+{{#resources}}
+        public string {{resourceName}}({{#resourceParams}}object {{paramName}}{{^isLast}}, {{/isLast}}{{/resourceParams}})
+        { {{^hasParams}}
+            return PrepareLocalizedString("{{resourceName}}");
+{{/hasParams}}{{#hasParams}}
+            
+            return string.Format(
+                PrepareLocalizedString(
+                    "{{resourceName}}"{{#resourceParams}}, 
+                    nameof({{paramName}}){{/resourceParams}}
+                ){{#resourceParams}},
+                {{paramName}}{{/resourceParams}}
+            );
+{{/hasParams}}
+        }
+
+{{/resources}}
+        private string PrepareLocalizedString(string name, params string[] parameterNames)
+        {
+            string value = _localizer[name];
+            Debug.Assert(value != null, $"_localizer[{name}] is null");
+
+            for (int i = 0; i < parameterNames.Length; i++)
+            {
+                var pattern = @"\${" + parameterNames[i] + @"([:,][^\}]*)?}";
+                var replace = "{" + i + "$1}";
+
+                value = Regex.Replace(value, pattern, replace);
+            }
+
+            return value;
+        }
+    }
+}

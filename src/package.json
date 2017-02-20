@@ -1,0 +1,25 @@
+{
+  "name": "resx2cs",
+  "version": "1.0.0",
+  "description": "Library to transform resx data to models, which can be fed to a mustache template",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js | mustache - template.mustache",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apaleo/docker-resx2cs.git"
+  },
+  "author": "Apaleo GmbH",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apaleo/docker-resx2cs/issues"
+  },
+  "homepage": "https://github.com/apaleo/docker-resx2cs#readme",
+  "dependencies": {
+    "get-stdin": "^5.0.1",
+    "mustache": "^2.3.0",
+    "xml2js": "^0.4.17"
+  }
+}
