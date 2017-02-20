@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cat /data/$1 | npm start > /data/$2
+cat /data/$1 | npm start -s > /data/$2
